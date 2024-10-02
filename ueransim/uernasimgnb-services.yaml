@@ -1,0 +1,43 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    meta.helm.sh/release-name: ueransim-gnb
+    meta.helm.sh/release-namespace: default
+  creationTimestamp: "2024-09-29T09:52:52Z"
+  labels:
+    app.kubernetes.io/component: gnb
+    app.kubernetes.io/instance: ueransim-gnb
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: ueransim-gnb
+    helm.sh/chart: ueransim-gnb-0.2.6
+  name: ueransim-gnb
+  namespace: default
+  resourceVersion: "6173076"
+  uid: 7db05cf2-7aef-4a38-8550-fcd8dfa278f4
+spec:
+  clusterIP: None
+  clusterIPs:
+  - None
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+  - name: gnb-ue
+    port: 4997
+    protocol: UDP
+    targetPort: 4997
+  - name: gnb-upf
+    port: 2152
+    protocol: UDP
+    targetPort: 2152
+  publishNotReadyAddresses: true
+  selector:
+    app.kubernetes.io/component: gnb
+    app.kubernetes.io/instance: ueransim-gnb
+    app.kubernetes.io/name: ueransim-gnb
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}

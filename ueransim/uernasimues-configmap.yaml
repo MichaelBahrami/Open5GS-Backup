@@ -1,0 +1,38 @@
+apiVersion: v1
+data:
+  ue.yaml: "# IMSI number of the UE. IMSI = [MCC|MNC|MSISDN] (In total 15 or 16 digits)\n\nsupi:
+    'imsi-999700000000001'\nmcc: '999'\nmnc: '70'\n\n# Permanent subscription key\nkey:
+    '465B5CE8B199B49FAA5F0A2EE238A6BC'\n# Operator code (OP or OPC) of the UE\nop:
+    'E8ED289DEBA952E4283B54E88E6183CA'\n# This value specifies the OP type and it
+    can be either 'OP' or 'OPC'\nopType: 'OPC'\n# Authentication Management Field
+    (AMF) value\namf: '8000'\n# IMEI number of the device. It is used if no SUPI is
+    provided\nimei: '356938035643803'\n# IMEISV number of the device. It is used if
+    no SUPI and IMEI is provided\nimeiSv: '4370816125816151'\n\n# List of gNB IP addresses
+    for Radio Link Simulation\ngnbSearchList:\n  - 172.16.245.223\n\n  # UAC Access
+    Identities Configuration\nuacAic:\n  mps: false\n  mcs: false\n\n# UAC Access
+    Control Class\nuacAcc:\n  normalClass: 0\n  class11: false\n  class12: false\n
+    \ class13: false\n  class14: false\n  class15: false\n  \n# Initial PDU sessions
+    to be established\nsessions:\n  -\n    apn: internet\n    emergency: false\n    slice:\n
+    \     sd: \"0x111111\"\n      sst: 1\n    type: IPv4\n\n# Configured NSSAI for
+    this UE by HPLMN\nconfigured-nssai:\n  - sst: 1\n    sd: 0x111111\n\n# Default
+    Configured NSSAI for this UE\ndefault-nssai:\n  - sst: 1\n    sd: 0x111111\n\n#
+    Supported encryption algorithms by this UE\nintegrity:\n  IA1: true\n  IA2: true\n
+    \ IA3: true\n\n# Supported integrity algorithms by this UE\nciphering:\n  EA1:
+    true\n  EA2: true\n  EA3: true\n\n# Integrity protection maximum data rate for
+    user plane\nintegrityMaxRate:\n  uplink: 'full'\n  downlink: 'full'\n"
+kind: ConfigMap
+metadata:
+  annotations:
+    meta.helm.sh/release-name: ueransim-gnb
+    meta.helm.sh/release-namespace: default
+  creationTimestamp: "2024-09-29T09:52:52Z"
+  labels:
+    app.kubernetes.io/component: ues
+    app.kubernetes.io/instance: ueransim-gnb
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: ueransim-gnb
+    helm.sh/chart: ueransim-gnb-0.2.6
+  name: ueransim-gnb-ues
+  namespace: default
+  resourceVersion: "6199881"
+  uid: ac02b0d1-930e-4f6f-840d-c066a6ec5e9f
