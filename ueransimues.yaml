@@ -72,7 +72,7 @@ spec:
       volumes:
       - configMap:
           defaultMode: 420
-          name: ueransim-gnb-ues
+          name: ueransim-gnb1
         name: config
 status:
   availableReplicas: 1
