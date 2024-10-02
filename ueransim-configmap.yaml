@@ -1,0 +1,106 @@
+apiVersion: v1
+items:
+- apiVersion: v1
+  data:
+    ca.crt: |
+      -----BEGIN CERTIFICATE-----
+      MIIDBTCCAe2gAwIBAgIIGXZ+15LLljQwDQYJKoZIhvcNAQELBQAwFTETMBEGA1UE
+      AxMKa3ViZXJuZXRlczAeFw0yNDA4MjcxMzI1MDdaFw0zNDA4MjUxMzMwMDdaMBUx
+      EzARBgNVBAMTCmt1YmVybmV0ZXMwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEK
+      AoIBAQDfAIotRvvpofz+ATnBV/S+FWyH4yWCf03DKod0xK6DSnOdbUh3XGaSe5hh
+      ZCWPbHZ2u/rrPPA1c1BvYklU2a4TKDtcWeaAy3tMGfBEXpJ3la9PuenIVOzSZsx0
+      OjfwJ7FymYf18QLnRNhtHjbIimzfbN8aZ/ESZdTlrZoOMKu+nfsONc0xdIy1J81Q
+      8/ae8uOS/tCtjaad1Z4PQNm1+bMoGs2ZJQWJTT8i6a0JHd3poM06mF2c6DkpnsCV
+      vTNu3SsqwazeTvv8hh4DqDIBFvUFWBt3TGuAdEeICk3wx/35+c0/0HSxkS/CFoi2
+      2IhW1cr+AF0Rygc3Qg3zry9QEYlvAgMBAAGjWTBXMA4GA1UdDwEB/wQEAwICpDAP
+      BgNVHRMBAf8EBTADAQH/MB0GA1UdDgQWBBQXsys9wRrJUy+A2CHjhRCn0vSF0TAV
+      BgNVHREEDjAMggprdWJlcm5ldGVzMA0GCSqGSIb3DQEBCwUAA4IBAQBhrFtyO3EX
+      kQ99WY6rQg4XuTGF5CKWmhPl5DU/ZMCVxnjdltZZKFMYP2TZMFKxc8gJ3I6Hprls
+      F8EfxB82LHa/vbsCfDkvJNhLu2a8+nmwHm1SSeyOZ77RZEwEQeMZbynCFqbk4ryW
+      crOYfrqRgEFVra23Vfa9xYKGCMjVoK6GsMn46ko3QcwtHkhCefsst3AkTqY7j+6/
+      GB9jNK0Db/oAG/prp2JXU5ckvj3u30MMCZJ3FRe/XLdEezGq5V2Nc70652mQYAHB
+      0dO7P6ZD5hEZjaxO21yyRlxI7eeGCW51PdnUYoAP2yTgfSUhHWUhkAId1U2TW288
+      28CyDf3dXNCb
+      -----END CERTIFICATE-----
+  kind: ConfigMap
+  metadata:
+    annotations:
+      kubernetes.io/description: Contains a CA bundle that can be used to verify the
+        kube-apiserver when using internal endpoints such as the internal service
+        IP or kubernetes.default.svc. No other usage is guaranteed across distributions
+        of Kubernetes clusters.
+    creationTimestamp: "2024-09-29T13:14:52Z"
+    name: kube-root-ca.crt
+    namespace: gnbue
+    resourceVersion: "6205778"
+    uid: 0420e448-efd9-4212-bac0-a3b8f35bb101
+- apiVersion: v1
+  data:
+    gnb.yaml: "mcc: 999 # Mobile Country Code value\nmnc: 70 # Mobile Network Code
+      value (2 or 3 digits)\n\nnci: '0x0000000100'  # NR Cell Identity (36-bit)\nidLength:
+      32        # NR gNB ID length in bits [22...32]\ntac: 0001             # Tracking
+      Area Code\n\nlinkIp: ${RADIO_BIND_IP}   # gNB's local IP address for Radio Link
+      Simulation (Usually same with local IP)\nngapIp: ${N2_BIND_IP}  # gNB's local
+      IP address for N2 Interface (Usually same with local IP)\ngtpIp: ${N3_BIND_IP}
+      \  # gNB's local IP address for N3 Interface (Usually same with local IP)\n\n#
+      List of AMF address information\namfConfigs:\n  - address: 172.16.5.75 \n    port:
+      38412\n\n# List of supported S-NSSAIs by this gNB\nslices:\n  - sst: 1\n \n\n#
+      Indicates whether or not SCTP stream number errors should be ignored.\nignoreStreamIds:
+      true\n"
+  kind: ConfigMap
+  metadata:
+    annotations:
+      meta.helm.sh/release-name: ueransim-gnb1
+      meta.helm.sh/release-namespace: gnbue
+    creationTimestamp: "2024-09-29T13:15:15Z"
+    labels:
+      app.kubernetes.io/component: gnb
+      app.kubernetes.io/instance: ueransim-gnb1
+      app.kubernetes.io/managed-by: Helm
+      app.kubernetes.io/name: ueransim-gnb
+      helm.sh/chart: ueransim-gnb-0.2.6
+    name: ueransim-gnb1
+    namespace: gnbue
+    resourceVersion: "6220775"
+    uid: e730f0d0-70de-43c8-9b60-ca8738c4adde
+- apiVersion: v1
+  data:
+    ue.yaml: "# IMSI number of the UE. IMSI = [MCC|MNC|MSISDN] (In total 15 or 16
+      digits)\n\nsupi: 'imsi-999700000000011'\nmcc: '999'\nmnc: '70'\n\n# Permanent
+      subscription key\nkey: '465B5CE8B199B49FAA5F0A2EE238A6BC'\n# Operator code (OP
+      or OPC) of the UE\nop: 'E8ED289DEBA952E4283B54E88E6183CA'\n# This value specifies
+      the OP type and it can be either 'OP' or 'OPC'\nopType: 'OPC'\n# Authentication
+      Management Field (AMF) value\namf: '8000'\n# IMEI number of the device. It is
+      used if no SUPI is provided\nimei: '356938035643803'\n# IMEISV number of the
+      device. It is used if no SUPI and IMEI is provided\nimeiSv: '4370816125816151'\n\n#
+      List of gNB IP addresses for Radio Link Simulation\ngnbSearchList:\n  - 172.16.5.76\n\n
+      \ # UAC Access Identities Configuration\nuacAic:\n  mps: false\n  mcs: false\n\n#
+      UAC Access Control Class\nuacAcc:\n  normalClass: 0\n  class11: false\n  class12:
+      false\n  class13: false\n  class14: false\n  class15: false\n  \n# Initial PDU
+      sessions to be established\nsessions:\n  -\n    apn: internet\n    emergency:
+      false\n    slice:\n      sst: 1\n    type: IPv4\n\n# Configured NSSAI for this
+      UE by HPLMN\nconfigured-nssai:\n  - sst: 1\n    \n\n# Default Configured NSSAI
+      for this UE\ndefault-nssai:\n  - sst: 1\n    \n\n# Supported encryption algorithms
+      by this UE\nintegrity:\n  IA1: true\n  IA2: true\n  IA3: true\n\n# Supported
+      integrity algorithms by this UE\nciphering:\n  EA1: true\n  EA2: true\n  EA3:
+      true\n\n# Integrity protection maximum data rate for user plane\nintegrityMaxRate:\n
+      \ uplink: 'full'\n  downlink: 'full'\n"
+  kind: ConfigMap
+  metadata:
+    annotations:
+      meta.helm.sh/release-name: ueransim-gnb1
+      meta.helm.sh/release-namespace: gnbue
+    creationTimestamp: "2024-09-29T13:15:15Z"
+    labels:
+      app.kubernetes.io/component: ues
+      app.kubernetes.io/instance: ueransim-gnb1
+      app.kubernetes.io/managed-by: Helm
+      app.kubernetes.io/name: ueransim-gnb
+      helm.sh/chart: ueransim-gnb-0.2.6
+    name: ueransim-gnb1-ues
+    namespace: gnbue
+    resourceVersion: "6239238"
+    uid: 7b2668ba-a892-4b7b-831f-2826411d192c
+kind: List
+metadata:
+  resourceVersion: ""
