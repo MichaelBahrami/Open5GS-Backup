@@ -1,0 +1,1 @@
+UERANSIM (pronounced "ju-i ræn sɪm"), is the open source state-of-the-art 5G UE and RAN (gNodeB) simulator. UE and RAN can be considered as a 5G mobile phone and a base station in basic terms. The project can be used for testing 5G Core Network and studying 5G System.
