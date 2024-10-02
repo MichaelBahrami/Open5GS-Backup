@@ -38,7 +38,7 @@ spec:
         app.kubernetes.io/component: gnb
         app.kubernetes.io/instance: ueransim-gnb
         app.kubernetes.io/managed-by: Helm
-        app.kubernetes.io/name: ueransim-gnb
+        app.kubernetes.io/name: ueransim-gnb1
         helm.sh/chart: ueransim-gnb-0.2.6
     spec:
       containers:
