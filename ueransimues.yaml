@@ -8,22 +8,22 @@ metadata:
   creationTimestamp: "2024-09-29T09:52:52Z"
   generation: 1
   labels:
-    app.kubernetes.io/component: gnb
+    app.kubernetes.io/component: ues
     app.kubernetes.io/instance: ueransim-gnb
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: ueransim-gnb
     helm.sh/chart: ueransim-gnb-0.2.6
-  name: ueransim-gnb
+  name: ueransim-gnb-ues
   namespace: default
-  resourceVersion: "6176112"
-  uid: 97e8c031-2309-42db-9efa-50349b268a2b
+  resourceVersion: "6199957"
+  uid: 364bcfea-bb16-45f5-878b-3edc1f8bda87
 spec:
   progressDeadlineSeconds: 600
   replicas: 1
   revisionHistoryLimit: 10
   selector:
     matchLabels:
-      app.kubernetes.io/component: gnb
+      app.kubernetes.io/component: ues
       app.kubernetes.io/instance: ueransim-gnb
       app.kubernetes.io/name: ueransim-gnb
   strategy:
@@ -35,41 +35,35 @@ spec:
     metadata:
       creationTimestamp: null
       labels:
-        app.kubernetes.io/component: gnb
+        app.kubernetes.io/component: ues
         app.kubernetes.io/instance: ueransim-gnb
         app.kubernetes.io/managed-by: Helm
-        app.kubernetes.io/name: ueransim-gnb1
+        app.kubernetes.io/name: ueransim-gnb
         helm.sh/chart: ueransim-gnb-0.2.6
     spec:
       containers:
       - args:
-        - gnb
+        - ue
+        - -n
+        - "2"
         env:
-        - name: AMF_HOSTNAME
-          value: open5gs-amf-ngap
-        - name: N2_IFACE
-          value: eth0
-        - name: N3_IFACE
-          value: eth0
-        - name: RADIO_IFACE
-          value: eth0
+        - name: GNB_HOSTNAME
+          value: ueransim-gnb
         image: docker.io/gradiant/ueransim:3.2.6
         imagePullPolicy: Always
-        name: gnodeb
-        ports:
-        - containerPort: 4997
-          name: gnb-ue
-          protocol: UDP
-        - containerPort: 2152
-          name: gnb-upf
-          protocol: UDP
+        name: ues
         resources: {}
+        securityContext:
+          capabilities:
+            add:
+            - NET_ADMIN
+          privileged: true
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
         volumeMounts:
-        - mountPath: /etc/ueransim/gnb.yaml
+        - mountPath: /etc/ueransim/ue.yaml
           name: config
-          subPath: gnb.yaml
+          subPath: ue.yaml
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       schedulerName: default-scheduler
@@ -78,19 +72,19 @@ spec:
       volumes:
       - configMap:
           defaultMode: 420
-          name: ueransim-gnb
+          name: ueransim-gnb1
         name: config
 status:
   availableReplicas: 1
   conditions:
   - lastTransitionTime: "2024-09-29T09:52:52Z"
-    lastUpdateTime: "2024-09-29T09:53:28Z"
-    message: ReplicaSet "ueransim-gnb-cdf9649df" has successfully progressed.
+    lastUpdateTime: "2024-09-29T09:53:29Z"
+    message: ReplicaSet "ueransim-gnb-ues-6c55cf58d6" has successfully progressed.
     reason: NewReplicaSetAvailable
     status: "True"
     type: Progressing
-  - lastTransitionTime: "2024-09-29T10:12:02Z"
-    lastUpdateTime: "2024-09-29T10:12:02Z"
+  - lastTransitionTime: "2024-09-29T12:36:47Z"
+    lastUpdateTime: "2024-09-29T12:36:47Z"
     message: Deployment has minimum availability.
     reason: MinimumReplicasAvailable
     status: "True"
